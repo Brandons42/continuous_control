@@ -43,36 +43,6 @@ I chose to solve the second version of the project that involves training 20 age
 
 2. Decompress the file and place it in this repository
 
-3. Create Python environment using Anaconda
+3. Follow steps 1, 4, and 5 from [this repository](https://github.com/udacity/deep-reinforcement-learning)
 
-	- Linux or Mac:
-		```
-		conda create --name drlnd python=3.6
-		source activate drlnd
-		```
-	- Windows:
-		```
-		conda create --name drlnd python=3.6
-		activate drlnd
-		```
-
-4. Install dependencies
-
-	Assuming you're at the root of this repository:
-
-	```
-	cd python
-	pip install .
-	```
-
-5. Create kernel
-
-	```
-	python -m ipykernel install --user --name drlnd --display-name "drlnd"
-	```
-
-6. Open `Continuous_Control.ipynb` and set kernel
-
-![Kernel][image2]
-
-7. Follow the directions in `Continuous_Control.ipynb`
+4. Follow the directions in `Continuous_Control.ipynb`
