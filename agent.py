@@ -13,7 +13,7 @@ NOISE_MULTIPLIER = 2
 class Agent():
 	"""Interacts with and learns from the environment."""
 		
-	def __init__(self, action_size, random_seed, batch_size, actor_local, actor_target, actor_optimizer, critic_local, critic_target, memory, noise, device='cpu'):
+	def __init__(self, action_size, random_seed, batch_size, actor_local, actor_target, actor_optimizer, critic_local, critic_target, critic_optimizer, memory, noise, device='cpu'):
 		"""Initialize an Agent object.
 			
 		Params
@@ -23,8 +23,10 @@ class Agent():
 			batch_size (int): minibatch size for learning
 			actor_local (Actor): local actor network
 			actor_target (Actor): target actor network
+			actor_optimizer (Optimizer): actor optimizer
 			critic_local (Critic): local critic network
 			critic_target (Critic): target critic network
+			critic_optimizer (Optimizer): critic optimizer
 			memory (ReplayBuffer): replay buffer
 			noise (OUNoise): noise generator
 			device (string): device to use
@@ -37,6 +39,7 @@ class Agent():
 		self.actor_optimizer = actor_optimizer
 		self.critic_local = critic_local
 		self.critic_target = critic_target
+		self.critic_optimizer = critic_optimizer
 		self.memory = memory
 		self.noise = noise
 		self.device = device
@@ -94,10 +97,10 @@ class Agent():
 		Q_expected = self.critic_local(states, actions)
 		critic_loss = F.mse_loss(Q_expected, Q_targets)
 		# Minimize the loss
-		critic_optimizer.zero_grad()
+		self.critic_optimizer.zero_grad()
 		critic_loss.backward()
 		torch.nn.utils.clip_grad_norm(self.critic_local.parameters(), 1)
-		critic_optimizer.step()
+		self.critic_optimizer.step()
 
 		# ---------------------------- update actor ---------------------------- #
 		# Compute actor loss
